@@ -2,7 +2,7 @@
 <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+
 <script>
 	const tags = {
 		research: "Research",
@@ -583,9 +583,9 @@ function contains(arr, el) {
   return arr.indexOf(el) > -1;
 }
 
-const views = ['cards', 'list'];
-const filters = ['all', 'none'];
-const modes = ['view', 'edit'];
+const VIEWS = ['cards', 'list'];
+const FILTERS = ['all', 'none'];
+const MODES = ['view', 'edit'];
 
 class App extends React.Component {
   constructor(props) {
@@ -600,6 +600,22 @@ class App extends React.Component {
       mode: 'view',
       ideaList: [],
     }
+
+    ideaList.forEach(idea => {
+const newIdea = {
+			label: this.state.submit,
+			tags: this.state.selectedTags,
+		};
+
+		axios.get(`http://127.0.0.1:5000/submit/${JSON.stringify(newIdea)}`);
+
+		this.setState({
+			selectedTags: [],
+			submit: '',
+			ideaList: [...this.state.ideaList, newIdea],
+		});
+	  });
+
   }
 
   componentWillMount() {
@@ -612,33 +628,15 @@ class App extends React.Component {
 			});
   }
 
-  renderFilterOptions() {
-    return filters.map(el => {
-      const selectedClass = this.state.defaultFilter ===  el ? 'selected' : '';
+  renderOptions(list, stateField) {
+  	return list.map(el => {
+		 	const selectedClass = this.state[stateField] ===  el ? 'selected' : '';
       return (
-        <div key={el} className={`${selectedClass} filter`} onClick={() => this.setState({ defaultFilter: el })}>
-          {el}
-        </div>
-      );
-    });
-  }
-
-  renderModeOptions() {
-    return modes.map(el => {
-      const selectedClass = this.state.mode === el ? 'selected' : '';
-      return (
-        <div key={el} className={`${selectedClass} filter`} onClick={() => this.setState({ mode: el })}>
-          {el}
-        </div>
-      );
-    });
-  }
-
-  renderViewOptions() {
-    return views.map(el => {
-      const selectedClass = this.state.view === el ? 'selected' : '';
-      return (
-        <div key={el} className={`${selectedClass} filter`} onClick={() => this.setState({ view: el })}>
+        <div
+        	key={el}
+        	className={`${selectedClass} filter`}
+        	onClick={() => this.setState({ [stateField]: el })}
+      	>
           {el}
         </div>
       );
@@ -684,7 +682,6 @@ class App extends React.Component {
   }
 
   getSearchResults() {
-  	console.log(this.state);
     return this.state.ideaList.filter(idea => idea.label.toLowerCase().indexOf(this.state.search.toLowerCase()) > -1);
   }
 
@@ -716,10 +713,7 @@ class App extends React.Component {
 			tags: this.state.selectedTags,
 		};
 
-		axios.get(`http://127.0.0.1:5000/submit/${JSON.stringify(newIdea)}`)
-			.then();
-
-		console.log(this.state);
+		axios.get(`http://127.0.0.1:5000/submit/${JSON.stringify(newIdea)}`);
 
 		this.setState({
 			selectedTags: [],
@@ -728,16 +722,14 @@ class App extends React.Component {
 		});
 	}
 
-  renderSearch() {
+	renderInput(stateField) {
     return (
-      <input className="search" value={this.state.search} onChange={this.handleChange.bind(this, 'search')}/>
+      <input
+      	className="search"
+      	value={this.state[stateField]}
+      	onChange={this.handleChange.bind(this, stateField)}
+    	/>
     );
-  }
-
-  renderSubmit() {
-  	return (
-      <input className="search" value={this.state.submit} onChange={this.handleChange.bind(this, 'submit')}/>
-  	);
 	}
 
   maybeRenderViewMode() {
@@ -745,15 +737,15 @@ class App extends React.Component {
 		  <span>
 		  	<div className="search-wrapper">
 	        Search:
-	        {this.renderSearch()}
+	        {this.renderInput('search')}
 	      </div>
 	      <div className="view-wrapper">
 	        View As:
-	        {this.renderViewOptions()}
+	        {this.renderOptions(VIEWS, 'view')}
 	      </div>
 	      <div className="filter-wrapper">
 	        Default View:
-	        {this.renderFilterOptions()}
+	        {this.renderOptions(FILTERS, 'defaultFilter')}
 	      </div>
 	      <div className="tag-wrapper">
 	        {this.renderTagButtons()}
@@ -770,7 +762,7 @@ class App extends React.Component {
 	  	<span>
 		  	<div className="search-wrapper">
 		  		Submit:
-	      	{this.renderSubmit()}
+	      	{this.renderInput('submit')}
       	</div>
 	      <div className="tag-wrapper">
 	        {this.renderTagButtons()}
@@ -786,7 +778,7 @@ class App extends React.Component {
     return (
       <div className="App">
       	<div>
-  				{this.renderModeOptions()}
+  				{this.renderOptions(MODES, 'mode')}
       	</div>
       	{this.maybeRenderViewMode()}
       	{this.maybeRenderEditMode()}
@@ -796,8 +788,6 @@ class App extends React.Component {
 }
 
 	ReactDOM.render(<App />, document.getElementById('root'));
-</script>
-<script>
 </script>
 
 <style>
