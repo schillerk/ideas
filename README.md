@@ -16,3 +16,5 @@ Some good things to work on:
 - Or at least use https://www.sqlite.org/json1.html
 - Order tag buttons alphabetically
 - Phab Integration
+- Login
+- Login with Okta or SSO
