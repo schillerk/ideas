@@ -3,585 +3,31 @@
 <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
 
-<script>
-	const tags = {
-		research: "Research",
-		public: "Public",
-		ethics: "Ethics / Accountability",
-		new: "New Areas",
-		internal: "Internal",
-		collab: "Collaboration",
-		dash: "Dashboards",
-		ux: "UX / Usability",
-		features: "Features",
-		impact: "Impact / M&E",
-		ml: "ML / AI",
-		analysis: "Analysis",
-		training: "Training, Documentation",
-		data: "Data Quality / New Data",
-		viz: "New and Improved Visualizations",
-		moonshot: "Moonshots",
-	};
-
-	const ideaList = [
-		{
-			label: 'Zenysis Country Research Blog',
-			tags: ['public', 'research'],
-		},
-		{
-			label: 'API for researchers',
-			tags: ['research'],
-		},
-		{
-			label: 'Publishing Research',
-			tags: ['research', 'public'],
-		},
-		{
-			label: 'Sharing to Social Media',
-			tags: ['public'],
-		},
-		{
-			label: 'Zenysis Analytics Scholarship',
-			tags: ['public', 'training'],
-		},
-		{
-			label: 'Non-profit arm',
-			tags: ['new'],
-		},
-		{
-			label: 'Recreate published research',
-			tags: ['research'],
-		},
-		{
-			label: 'Report generation and publishing point',
-			tags: ['public'],
-		},
-		{
-			label: 'Open-Source Zenysis',
-			tags: ['public'],
-		},
-		{
-			label: 'SMS Notification for Big Changes',
-			tags: ['public'],
-		},
-		{
-			label: 'Cross-geography data portal',
-			tags: ['public'],
-		},
-		{
-			label: 'Allow Public Subsription to Email Updates',
-			tags: ['public'],
-		},
-		{
-			label: 'Plugin Support',
-			tags: ['public'],
-		},
-		{
-			label: 'HIPAA Compliance',
-			tags: ['ethics'],
-		},
-		{
-			label: 'GDPR Compliance',
-			tags: ['ethics'],
-		},
-		{
-			label: '2FA',
-			tags: ['ethics'],
-		},
-		{
-			label: 'SSO',
-			tags: ['ethics'],
-		},
-		{
-			label: 'Respect data exchange standards',
-			tags: ['ethics', 'public'],
-		},
-		{
-			label: 'Zenysis gets Audited',
-			tags: ['ethics'],
-		},
-		{
-			label: 'Deep Dive tools in Health',
-			tags: ['analysis'],
-		},
-		{
-			label: 'Deep Dive tools in Agriculture',
-			tags: ['analysis', 'new'],
-		},
-		{
-			label: 'Deep Dive tools in Education',
-			tags: ['analysis', 'new'],
-		},
-		{
-			label: 'Tools for Public Infrastructure',
-			tags: ['new'],
-		},
-		{
-			label: 'Investment Arm',
-			tags: ['new'],
-		},
-		{
-			label: 'Engagement tools for PMs',
-			tags: ['internal', 'training'],
-		},
-		{
-			label: 'Internal Tools and Processes for humane feedback',
-			tags: ['internal'],
-		},
-		{
-			label: 'Referral / incentive program for new users and data',
-			tags: ['training', 'internal'],
-		},
-		{
-			label: 'Story Telling Tools',
-			tags: ['features'],
-		},
-		{
-			label: 'Broadcast my Analysis',
-			tags: ['public'],
-		},
-		{
-			label: 'Live Chat',
-			tags: ['features'],
-		},
-		{
-			label: 'Chat/Collab via XMPP',
-			tags: ['features'],
-		},
-		{
-			label: 'Coordination Tools for Crisis',
-			tags: ['features', 'new'],
-		},
-		{
-			label: 'Collaborative Dashboards',
-			tags: ['dash', 'collab'],
-		},
-		{
-			label: 'Google Slides Integration',
-			tags: ['collab'],
-		},
-		{
-			label: 'Google Sheets Integration',
-			tags: ['collab'],
-		},
-		{
-			label: 'Data Narratives',
-			tags: ['features'],
-		},
-		{
-			label: 'SMS Health Recommendations',
-			tags: ['ml', 'features'],
-		},
-		{
-			label: 'IVR for User Support',
-			tags: ['training', 'features'],
-		},
-		{
-			label: 'Contact info for Facliities and Regional Bureaus',
-			tags: ['public'],
-		},
-		{
-			label: 'Google Docs-like editing of Dashboards',
-			tags: ['collab', 'dash'],
-		},
-		{
-			label: 'Full-screen mode on the dashboard',
-			tags: ['dash', 'ux'],
-		},
-		{
-			label: 'Premade / simplified Dashboards for Health Officers',
-			tags: ['dash', 'ux'],
-		},
-		{
-			label: 'Auto Configured Dashboards',
-			tags: ['dash', 'ux'],
-		},
-		{
-			label: 'User Permissions for App/Pages',
-			tags: ['ethics', 'features'],
-		},
-		{
-			label: 'Text / Annotations as Dashboard Tiles',
-			tags: ['features', 'dash'],
-		},
-		{
-			label: 'Auto-configured data quality',
-			tags: ['data'],
-		},
-		{
-			label: 'Exploratory Tools for Non-technical Users',
-			tags: ['ux', 'public'],
-		},
-		{
-			label: 'Query Templates by Use Case',
-			tags: ['ux'],
-		},
-		{
-			label: 'Humane Gamification',
-			tags: ['ux', 'training'],
-		},
-		{
-			label: 'Link Data Across Visualizations Through Labels and Hover Effects',
-			tags: ['viz', 'features'],
-		},
-		{
-			label: 'User Generated Translations',
-			tags: ['ux', 'ethics'],
-		},
-		{
-			label: 'Admin Usage Analytics: Auditing and Metrics',
-			tags: ['features'],
-		},
-		{
-			label: 'User Preferences',
-			tags: ['features', 'ethics'],
-		},
-		{
-			label: 'Accessibility (esp. for blind and hard of sight users) Read things out loud or summarize',
-			tags: ['ethics', 'ux'],
-		},
-		{
-			label: 'Mobile App',
-			tags: ['new', 'features', 'public'],
-		},
-		{
-			label: 'Offline Platform Mode',
-			tags: ['public', 'ux'],
-		},
-		{
-			label: 'Select Data for Download',
-			tags: ['features'],
-		},
-		{
-			label: 'SQL Queries for Advanced Users',
-			tags: ['features', 'analysis'],
-		},
-		{
-			label: 'Frontned for Mapping Files',
-			tags: ['viz'],
-		},
-		{
-			label: 'User-facing Roadmap',
-			tags: ['ux', 'ethics'],
-		},
-		{
-			label: 'User-facing Feedback',
-			tags: ['ux', 'ethics'],
-		},
-		{
-			label: 'Offline / Intranet Access',
-			tags: ['public', 'ethics'],
-		},
-		{
-			label: 'Community Health Tracking',
-			tags: ['analysis'],
-		},
-		{
-			label: 'Export Maps to ArcGIS',
-			tags: ['viz', 'public', 'features'],
-		},
-		{
-			label: 'Awesome GeoExplorer with Meta and time series data',
-			tags: ['features', 'viz', 'analysis'],
-		},
-		{
-			label: 'Resource Allocation Tools',
-			tags: ['analysis', 'impact'],
-		},
-		{
-			label: 'Weekly Champions Notifications',
-			tags: ['internal', 'training'],
-		},
-		{
-			label: 'Annotation Toolkit that supports notifications when a user is mentioned',
-			tags: ['collab', 'ux', 'features'],
-		},
-		{
-			label: 'Data Ingestion Viewer',
-			tags: ['features'],
-		},
-		{
-			label: 'Accountability Metrics',
-			tags: ['ethics'],
-		},
-		{
-			label: 'Decision Tracker and Milestones (Intervention Monitoring)',
-			tags: ['impact', 'analysis'],
-		},
-		{
-			label: 'Quantifying success in current projects to make better decisions',
-			tags: ['impact', 'analysis'],
-		},
-		{
-			label: 'Prediction tools for how interventions will affect indicators',
-			tags: ['impact', 'ml', 'analysis'],
-		},
-		{
-			label: 'Intervention Analysis Tool',
-			tags: ['analysis', 'ml'],
-		},
-		{
-			label: 'Live Saved Tookit',
-			tags: ['analysis', 'research'],
-		},
-		{
-			label: 'Indicator Encyclopedia',
-			tags: ['ux', 'training'],
-		},
-		{
-			label: 'MGTA Data',
-			tags: ['data'],
-		},
-		{
-			label: 'Cross-Border Analysis',
-			tags: ['analysis'],
-		},
-		{
-			label: 'Linkage of similar indicator',
-			tags: ['features'],
-		},
-		{
-			label: 'Get Data Insights publicly accessible and distributed to regular citizens',
-			tags: ['public'],
-		},
-		{
-			label: 'Calculated Indicator Builder',
-			tags: ['features'],
-		},
-		{
-			label: 'Recommended Indicators for what indicator to build alerts on based on disease',
-			tags: ['ux'],
-		},
-		{
-			label: 'Frequently accessed or favorite indicators',
-			tags: ['features', 'ux'],
-		},
-		{
-			label: 'References to relevant research',
-			tags: ['research', 'features'],
-		},
-		{
-			label: 'Field recommendations during query construction',
-			tags: ['features'],
-		},
-		{
-			label: 'Data use and users behavior',
-			tags: ['internal'],
-		},
-		{
-			label: 'Regular Generalized Forecasts',
-			tags: ['ml'],
-		},
-		{
-			label: 'Supply Chain Analysis',
-			tags: ['analysis'],
-		},
-		{
-			label: 'User Churn Detection / Prediction',
-			tags: ['ml', 'internal'],
-		},
-		{
-			label: 'Automatic Triangulation',
-			tags: ['analysis'],
-		},
-		{
-			label: 'Granular Resource Allocation',
-			tags: ['features'],
-		},
-		{
-			label: 'Predicting Checkpoints for Health Infrasturcutre Goals (Compare to Control)',
-			tags: ['impact', 'analysis'],
-		},
-		{
-			label: 'In-Platform ML model deployment',
-			tags: ['ml'],
-		},
-		{
-			label: 'Inegration with 3rd party ML Libraries',
-			tags: ['ml'],
-		},
-		{
-			label: 'Satellite Data Tools',
-			tags: ['ml'],
-		},
-		{
-			label: 'Internal Ad Network',
-			tags: ['ml', 'new', 'features'],
-		},
-		{
-			label: 'Queries in Human Readable Language',
-			tags: ['ml', 'ux'],
-		},
-		{
-			label: 'Recommended analysis at a personal level',
-			tags: ['ml'],
-		},
-		{
-			label: 'Auto suggest correlated anslyses',
-			tags: ['ml'],
-		},
-		{
-			label: 'Computer Vision for Handwritting Forms',
-			tags: ['ml'],
-		},
-		{
-			label: 'Prediction on HR training and recruitment',
-			tags: ['ml', 'training', 'internal'],
-		},
-		{
-			label: 'Regression / Correlation Tools',
-			tags: ['ml'],
-		},
-		{
-			label: 'API docs',
-			tags: ['public'],
-		},
-		{
-			label: 'Open Sourced Clients',
-			tags: ['public'],
-		},
-		{
-			label: 'User Onboarding Flow',
-			tags: ['training'],
-		},
-		{
-			label: 'Productized Training Materials',
-			tags: ['training', 'internal'],
-		},
-		{
-			label: 'Analysis Bootcamp',
-			tags: ['training'],
-		},
-		{
-			label: 'Forum Page and Knowledge Management Page',
-			tags: ['training'],
-		},
-		{
-			label: 'Guided Interactive Tutorial',
-			tags: ['training'],
-		},
-		{
-			label: 'Structured Training / Achievement Levels',
-			tags: ['training'],
-		},
-		{
-			label: 'Triggered Help Articles',
-			tags: ['training'],
-		},
-		{
-			label: 'Daily Data feeds',
-			tags: ['features'],
-		},
-		{
-			label: 'Integration for dummies Frontend',
-			tags: ['data', 'features'],
-		},
-		{
-			label: 'Interpolation for data quality issues',
-			tags: ['data', 'analysis'],
-		},
-		{
-			label: 'Auto detection Integration Pipeline',
-			tags: ['ml', 'data'],
-		},
-		{
-			label: 'Request Local Reports for Rural Disconnected Areas',
-			tags: ['public'],
-		},
-		{
-			label: 'UI that Surfaces outliers and potential data quality issues',
-			tags: ['ml', 'data'],
-		},
-		{
-			label: 'Data for resource request and resource stockpiles',
-			tags: ['data', 'features'],
-		},
-		{
-			label: 'User registration',
-			tags: ['training'],
-		},
-		{
-			label: 'Crownsourcing Data Verificaton',
-			tags: ['data'],
-		},
-		{
-			label: 'Launch Data Collection Requests',
-			tags: ['data', 'new'],
-		},
-		{
-			label: 'IVR Data Integration',
-			tags: ['data'],
-		},
-		{
-			label: 'Mobile App for Data Collection',
-			tags: ['data', 'new'],
-		},
-		{
-			label: 'Data Collection Form',
-			tags: ['data', 'new'],
-		},
-		{
-			label: 'Frontend Import',
-			tags: ['features', 'data'],
-		},
-		{
-			label: 'Integration Public Datasets',
-			tags: ['data'],
-		},
-		{
-			label: 'Automagically find data quality issues',
-			tags: ['data', 'ml'],
-		},
-		{
-			label: 'Data ingestion throug other channels, i.e. text message',
-			tags: ['data'],
-		},
-		{
-			label: 'Visual Pipeline Tool',
-			tags: ['data', 'features'],
-		},
-		{
-			label: 'Visualization Text Annotations',
-			tags: ['features'],
-		},
-		{
-			label: 'Pivot Table',
-			tags: ['moonshot', 'analysis', 'features'],
-		},
-		{
-			label: 'Crazy Data Visualizations for Investors',
-			tags: ['viz'],
-		},
-		{
-			label: 'Drill Down',
-			tags: ['viz'],
-		},
-		{
-			label: 'Expand GeoExplorer into full GIS',
-			tags: ['viz'],
-		},
-		{
-			label: 'Visualization Framework (ZD3)',
-			tags: ['viz'],
-		},
-		{
-			label: 'Patient-level vizualization tools',
-			tags: ['viz', 'analysis', 'new'],
-		},
-		{
-			label: '3d and more elegant data visualization tools to help see patterns',
-			tags: ['viz'],
-		}
-	];
-</script>
-
 <div id="root"></div>
 
 <script type="text/babel">
-
 function contains(arr, el) {
   return arr.indexOf(el) > -1;
 }
+
+const TAGS = {
+	research: "Research",
+	public: "Public",
+	ethics: "Ethics / Accountability",
+	new: "New Areas",
+	internal: "Internal",
+	collab: "Collaboration",
+	dash: "Dashboards",
+	ux: "UX / Usability",
+	features: "Features",
+	impact: "Impact / M&E",
+	ml: "ML / AI",
+	analysis: "Analysis",
+	training: "Training, Documentation",
+	data: "Data Quality / New Data",
+	viz: "New and Improved Visualizations",
+	moonshot: "Moonshots",
+};
 
 const VIEWS = ['cards', 'list'];
 const FILTERS = ['all', 'none'];
@@ -600,30 +46,13 @@ class App extends React.Component {
       mode: 'view',
       ideaList: [],
     }
-
-    ideaList.forEach(idea => {
-const newIdea = {
-			label: this.state.submit,
-			tags: this.state.selectedTags,
-		};
-
-		axios.get(`http://127.0.0.1:5000/submit/${JSON.stringify(newIdea)}`);
-
-		this.setState({
-			selectedTags: [],
-			submit: '',
-			ideaList: [...this.state.ideaList, newIdea],
-		});
-	  });
-
   }
 
   componentWillMount() {
   	axios.get(`http://127.0.0.1:5000/getdata`)
 			.then(response => {
-				const newIdeas = response.data.map(datum => JSON.parse(datum));
 				this.setState({
-					ideaList: ideaList.concat(newIdeas),
+					ideaList: response.data.map(datum => JSON.parse(datum))
 				});
 			});
   }
@@ -653,7 +82,7 @@ const newIdea = {
   }
 
   renderTagButtons() {
-    return Object.keys(tags).map(tag => {
+    return Object.keys(TAGS).map(tag => {
       const selectedClass = contains(this.state.selectedTags, tag) ? 'selected' : '';
       const colorClass = this.state.view === 'list' ? tag : '';
       return (
@@ -662,7 +91,7 @@ const newIdea = {
           key={tag}
           onClick={this.handleClick.bind(this, tag)}
         >
-          {tags[tag]}
+          {TAGS[tag]}
         </div>
       );
     })
@@ -670,8 +99,8 @@ const newIdea = {
 
   renderTags(ideaTags) {
     const tagEls = ideaTags.map(tag => (
-      <span className={`${this.state.view}-tag ${tag}`} key={tag} data-content={tags[tag]}>
-        {this.state.view === 'cards' ? tags[tag] : ''}
+      <span className={`${this.state.view}-tag ${tag}`} key={tag} data-content={TAGS[tag]}>
+        {this.state.view === 'cards' ? TAGS[tag] : ''}
       </span>
     ));
     return (
@@ -709,7 +138,7 @@ const newIdea = {
 
   handleSubmit() {
   	const newIdea = {
-			label: this.state.submit,
+			label: this.state.submit.replace('/', '|'),
 			tags: this.state.selectedTags,
 		};
 
